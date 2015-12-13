@@ -6,6 +6,7 @@
 #include <fstream>
 #include "Universe.h"
 #include <Windows.h>
+#include <sstream>
 
 int main(int argc, char ** argv)
 {
@@ -16,8 +17,12 @@ int main(int argc, char ** argv)
 		std::cout<<"\nUnable to open output file.. D:";
 		return false;
 	}
+	std::stringstream stringStream;
 	Universe universe;
-	universe.Simulate(1000, outputFile);
+	universe.CreateUniverse(4, stringStream);
+	universe.Simulate(100, stringStream);
+	std::cout<<stringStream.str();
+	outputFile<<stringStream.str();
 	Sleep(1000);
 	return 0;
 }
