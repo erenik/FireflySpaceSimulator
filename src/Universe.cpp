@@ -13,7 +13,8 @@ void Universe::CreateUniverse(int solarSystemsToCreate, std::iostream & outputSt
 	/// Create solar systems.
 	for (int i = 0; i < solarSystemsToCreate; ++i)
 	{
-		SolarSystem system;
+		int temp = rand()%9+1;
+		SolarSystem system(temp, outputStream);
 		solarSystems.push_back(system);
 		outputStream<<"\nSolar system created: "<<system.name;
 	}

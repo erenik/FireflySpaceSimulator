@@ -8,7 +8,7 @@
 class SolarSystem 
 {
 public:
-	SolarSystem();
+	SolarSystem(int numberOfPlanets, std::iostream & outputStream);
 	void Simulate(int iterations, std::iostream & outputStream);
 
 
