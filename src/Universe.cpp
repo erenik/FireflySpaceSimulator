@@ -3,6 +3,7 @@
 /// A universe to be simulated...!
 
 #include "Universe.h"
+#include "Planet.h"
 
 Universe universe;
 
@@ -24,15 +25,15 @@ void Universe::CreateUniverse(int solarSystemsToCreate, std::iostream & outputSt
 	int temp2 = rand()%solarSystems.size();
 	SolarSystem & randomedSolarsystem = solarSystems[temp2];
 	int temp3 = rand()%randomedSolarsystem.planets.size();
-	Planet & randomedPlanet = randomedSolarsystem.planets[temp3];
-	randomedPlanet.population = 2000000000;
-	randomedPlanet.isBeingEvacuated = true;
+	Planet * randomedPlanet = randomedSolarsystem.planets[temp3];
+	randomedPlanet->population = 2000000000;
+	randomedPlanet->isBeingEvacuated = true;
 
 	/// Print total population.
 	outputStream<<"\nTotal Population: "<<TotalPopulation();
 
 	/// Kill Earth and create ships.
-	DestroyPlanet();
+//	DestroyPlanet();
 }
 
 /// Simulates the universe.

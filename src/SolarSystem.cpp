@@ -3,6 +3,7 @@
 /// A very cool solar system
 
 #include "SolarSystem.h"
+#include "Planet.h"
 #include <cstring>
 #include <cstdlib>
 #include <iostream>
@@ -16,7 +17,7 @@ SolarSystem::SolarSystem(int numberOfPlanets, std::iostream & outputStream)
 	}
 	for (int q = 0; q < numberOfPlanets; ++q)
 	{
-		Planet planet;
+		Planet * planet = new Planet();
 		planets.push_back(planet);
 		outputStream<<std::endl<<q+1<<" Planet created.";
 	}
@@ -27,7 +28,7 @@ void SolarSystem::Simulate(int iterations, std::iostream & outputStream)
 	// Do something, or just call Simulate for each planet later?
 	for(int q=0; q<planets.size(); ++q)
 	{
-		planets[q].Simulate(iterations, outputStream);
+		planets[q]->Simulate(iterations, outputStream);
 	}
 }
 
@@ -37,7 +38,7 @@ long SolarSystem::TotalPopulation()
 	long totalPopulation = 0;
 	for(int q=0; q<planets.size(); ++q)
 	{
-		totalPopulation += planets[q].population;
+		totalPopulation += planets[q]->population;
 	}
 	return totalPopulation;
 }
@@ -45,5 +46,5 @@ long SolarSystem::TotalPopulation()
 	/// Destroys a planet.
 void SolarSystem::DestroyPlanet(int planetIndex)
 {
-	Planet & targetPlanet = planets[planetIndex];
+	Planet * targetPlanet = planets[planetIndex];
 }

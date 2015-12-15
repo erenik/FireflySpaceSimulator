@@ -2,6 +2,9 @@
 /// 2015-12-13
 /// A very cool solar system
 
+#ifndef SOLAR_SYSTEM_H
+#define SOLAR_SYSTEM_H
+
 class Planet;
 #include <vector>
 
@@ -23,4 +26,4 @@ public:
 
 };
 
-
+#endif

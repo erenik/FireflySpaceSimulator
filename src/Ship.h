@@ -2,8 +2,8 @@
 /// 2015-12-13
 /// Very planet-wise.
 
-#ifndef PLANET_H
-#define PLANET_H
+#ifndef SHIP_H
+#define SHIP_H
 
 class Ship
 {

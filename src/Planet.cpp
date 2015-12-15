@@ -4,8 +4,8 @@
 
 #include <iostream>
 #include "Planet.h"
-#include "Universe.h"
 #include "Ship.h"
+#include "Universe.h"
 
 //Population and stuff, so far
 Planet::Planet()
@@ -18,6 +18,7 @@ Planet::Planet()
 /// Simulates the planet.
 void Planet::Simulate(int iterations, std::iostream & outputStream)
 {
+	Ship ship;
 	for (int i = 0; i < iterations; ++i)
 	{
 		hour++;
@@ -28,8 +29,8 @@ void Planet::Simulate(int iterations, std::iostream & outputStream)
 			if(isBeingEvacuated)
 			{
 				///Creates some ships.
-				Ship ship;
-				ship.population = 50;
+				Ship * ship = new Ship();
+				ship->population = 50;
 				population -= 50;
 				universe.ships.push_back(ship);
 			}
