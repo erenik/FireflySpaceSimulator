@@ -18,7 +18,6 @@ int main(int argc, char ** argv)
 		return false;
 	}
 	std::stringstream stringStream;
-	Universe universe;
 	universe.CreateUniverse(4, stringStream);
 	universe.Simulate(100, stringStream);
 	std::cout<<stringStream.str();

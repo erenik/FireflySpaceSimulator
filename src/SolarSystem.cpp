@@ -14,7 +14,7 @@ SolarSystem::SolarSystem(int numberOfPlanets, std::iostream & outputStream)
 	{
 		name[i] = rand() % (90 - 65) + 65;
 	}
-	for (int q = 0; q < numberOfPlanets; q++)
+	for (int q = 0; q < numberOfPlanets; ++q)
 	{
 		Planet planet;
 		planets.push_back(planet);
@@ -25,5 +25,25 @@ SolarSystem::SolarSystem(int numberOfPlanets, std::iostream & outputStream)
 void SolarSystem::Simulate(int iterations, std::iostream & outputStream)
 {
 	// Do something, or just call Simulate for each planet later?
+	for(int q=0; q<planets.size(); ++q)
+	{
+		planets[q].Simulate(iterations, outputStream);
+	}
 }
 
+	/// Sums total population.
+long SolarSystem::TotalPopulation()
+{
+	long totalPopulation = 0;
+	for(int q=0; q<planets.size(); ++q)
+	{
+		totalPopulation += planets[q].population;
+	}
+	return totalPopulation;
+}
+
+	/// Destroys a planet.
+void SolarSystem::DestroyPlanet(int planetIndex)
+{
+	Planet & targetPlanet = planets[planetIndex];
+}
