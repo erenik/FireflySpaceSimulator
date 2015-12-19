@@ -4,6 +4,7 @@
 
 #include "Universe.h"
 #include "Planet.h"
+#include "Ship.h"
 
 Universe universe;
 
@@ -41,13 +42,24 @@ void Universe::Simulate(int iterations, std::iostream & outputStream)
 {
 	for (int i = 0; i < iterations; ++i)
 	{
-		outputStream<<"\nSimulating iteration "<<i;
+		//outputStream<<"\nSimulating iteration "<<i;
 		
-		for (int i = 0; i < solarSystems.size(); ++i)
+		for (int q = 0; q < solarSystems.size(); ++q)
 		{
-			solarSystems[i].Simulate(iterations, outputStream);
+			solarSystems[q].Simulate(1, outputStream);
 		}
-		outputStream<<"\nTotal Population: "<<TotalPopulation();
+		
+		for(int w = 0; w<ships.size(); w++)
+		{
+			Ship * ship = ships[w];
+			ship->Simulate(1, outputStream);
+			if(ship->deleteThis)
+			{
+				ships.erase(ships.begin()+w);
+				delete ship;
+				continue;
+			}
+		}
 	}
 }
 
@@ -55,6 +67,10 @@ void Universe::Simulate(int iterations, std::iostream & outputStream)
 long Universe::TotalPopulation()
 {
 	long totalPopulation = 0;
+	for(int w=0; w<ships.size(); ++w)
+	{
+		totalPopulation += ships[w]->population;
+	}
 	for(int q=0; q<solarSystems.size(); ++q)
 	{
 		totalPopulation += solarSystems[q].TotalPopulation();
@@ -62,3 +78,67 @@ long Universe::TotalPopulation()
 	return totalPopulation;
 }
 
+Planet * Universe::GetNewPlanetToBeColonised(Planet * originPlanet)
+{
+	int probability;
+	int totalProbability = 0;
+	std::vector<int> probabilities;
+
+	for(int q=0; q<planets.size(); ++q)
+	{
+		Planet * planet = planets[q];
+		int population = planet->population;
+		
+		if(planet->isBeingEvacuated)
+		{
+			probability = 0;
+		}
+		else if(population>1000)
+		{
+			probability = 1;
+		}
+		else if(population>500)
+		{
+			probability = 2;
+		}
+		else if(population>200)
+		{
+			probability = 3;
+		}
+		else if(population>100)
+		{
+			probability = 5;
+		}
+		else if(population>50)
+		{
+			probability = 10;
+		}
+		else 
+		{
+			probability = 15;
+		}
+		probabilities.push_back(probability);
+		totalProbability += probability;
+	}
+	int randomedValue = rand()%totalProbability;
+
+	for(int w = 0; w<planets.size(); ++w)
+	{
+		randomedValue -= probabilities[w];
+
+		if(randomedValue<=0)
+		{
+			return planets[w];
+		}
+	}
+	return 0;
+}
+
+int Universe::GetTravelTime(Planet * destination, Planet * origin)
+{
+	if(destination->solarsystem==origin->solarsystem)
+	{
+		return 240;
+	}
+	return 720;
+}

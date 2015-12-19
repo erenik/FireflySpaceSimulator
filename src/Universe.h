@@ -7,6 +7,7 @@
 #include "SolarSystem.h"
 class Ship;
 
+class Planet;
 class Universe 
 {
 public:
@@ -17,10 +18,12 @@ public:
 	void Simulate(int iterations, std::iostream & outputStream);
 	/// Sums total population.
 	long TotalPopulation();
-
+	/// Finds a new planet
+	Planet * GetNewPlanetToBeColonised(Planet*);
+	int GetTravelTime(Planet * destination, Planet * origin);
 	std::vector<SolarSystem> solarSystems;
 	std::vector<Ship*> ships;
-
+	std::vector<Planet*> planets;
 };
 
 extern Universe universe;

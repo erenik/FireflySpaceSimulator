@@ -7,6 +7,8 @@
 
 #include <iostream>
 
+class SolarSystem;
+
 class Planet 
 {
 public:
@@ -16,6 +18,8 @@ public:
 	Planet();
 	void Simulate(int iterations, std::iostream & outputstream);
 	int hour;
+	SolarSystem * solarsystem;
+	char name[40];
 
 };
 

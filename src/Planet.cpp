@@ -22,17 +22,26 @@ void Planet::Simulate(int iterations, std::iostream & outputStream)
 	for (int i = 0; i < iterations; ++i)
 	{
 		hour++;
-		outputStream<<"\nSimulating iteration "<<i;
 		if(hour>=24)
 		{
 			hour=0;
 			if(isBeingEvacuated)
 			{
 				///Creates some ships.
-				Ship * ship = new Ship();
-				ship->population = 50;
-				population -= 50;
-				universe.ships.push_back(ship);
+				for(int q = 0; q<500; q++)
+				{
+					Ship * ship = new Ship();
+					if(q==200) std::cout<<"\nShip count: "<<universe.ships.size();
+					ship->population = 50;
+					population -= 50;
+					universe.ships.push_back(ship);
+					ship->destination = universe.GetNewPlanetToBeColonised(this);
+					ship->travelTime = universe.GetTravelTime(ship->destination, this);
+				}
+			}
+			else 
+			{
+				population *= 1.00001;
 			}
 		}
 	}

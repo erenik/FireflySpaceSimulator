@@ -2,6 +2,7 @@
 /// 2015-12-13
 /// A very cool solar system
 
+#include "Universe.h"
 #include "SolarSystem.h"
 #include "Planet.h"
 #include <cstring>
@@ -17,9 +18,15 @@ SolarSystem::SolarSystem(int numberOfPlanets, std::iostream & outputStream)
 	}
 	for (int q = 0; q < numberOfPlanets; ++q)
 	{
+		char buffer[5];
+		itoa(q+1, buffer, 10);
 		Planet * planet = new Planet();
 		planets.push_back(planet);
+		universe.planets.push_back(planet);
 		outputStream<<std::endl<<q+1<<" Planet created.";
+		strcpy(planet->name, name);
+		strcat(planet->name, buffer);
+		planet->solarsystem=this;
 	}
 }
 
