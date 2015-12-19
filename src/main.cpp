@@ -18,12 +18,13 @@ int main(int argc, char ** argv)
 		return false;
 	}
 	std::stringstream stringStream;
-	universe.CreateUniverse(4, stringStream);
+	universe.CreateUniverse(100, stringStream);
 	for(int q = 0; q<100; ++q)
 	{
 		universe.Simulate(24, stringStream);
 		stringStream<<"\nTotal Population: "<<universe.TotalPopulation()<<" Active ships: "<<universe.ships.size();
 	}
+	universe.PrintStatistics(stringStream);
 	std::cout<<stringStream.str();
 	outputFile<<stringStream.str();
 	Sleep(1000);

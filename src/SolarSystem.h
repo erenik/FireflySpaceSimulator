@@ -14,7 +14,7 @@ public:
 	SolarSystem(int numberOfPlanets, std::iostream & outputStream);
 	void Simulate(int iterations, std::iostream & outputStream);
 	/// Sums total population.
-	long TotalPopulation();
+	long long TotalPopulation();
 	/// Destroys a planet.
 	void DestroyPlanet(int planetIndex);
 

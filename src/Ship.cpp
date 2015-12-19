@@ -10,6 +10,7 @@ Ship::Ship()
 	population = 0;
 	travelTime = -1;
 	deleteThis = false;
+	destination = 0;
 }
 
 void Ship::Simulate(int iterations, std::iostream & outputStream)

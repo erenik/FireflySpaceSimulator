@@ -18,15 +18,15 @@ void Universe::CreateUniverse(int solarSystemsToCreate, std::iostream & outputSt
 	for (int i = 0; i < solarSystemsToCreate; ++i)
 	{
 		int temp = rand()%9+1;
-		SolarSystem system(temp, outputStream);
+		SolarSystem * system = new SolarSystem(temp, outputStream);
 		solarSystems.push_back(system);
-		outputStream<<"\nSolar system created: "<<system.name;
+		outputStream<<"\nSolar system created: "<<system->name;
 	}
 	/// Appoint Earth.
 	int temp2 = rand()%solarSystems.size();
-	SolarSystem & randomedSolarsystem = solarSystems[temp2];
-	int temp3 = rand()%randomedSolarsystem.planets.size();
-	Planet * randomedPlanet = randomedSolarsystem.planets[temp3];
+	SolarSystem * randomedSolarsystem = solarSystems[temp2];
+	int temp3 = rand()%randomedSolarsystem->planets.size();
+	Planet * randomedPlanet = randomedSolarsystem->planets[temp3];
 	randomedPlanet->population = 2000000000;
 	randomedPlanet->isBeingEvacuated = true;
 
@@ -46,7 +46,7 @@ void Universe::Simulate(int iterations, std::iostream & outputStream)
 		
 		for (int q = 0; q < solarSystems.size(); ++q)
 		{
-			solarSystems[q].Simulate(1, outputStream);
+			solarSystems[q]->Simulate(1, outputStream);
 		}
 		
 		for(int w = 0; w<ships.size(); w++)
@@ -64,16 +64,16 @@ void Universe::Simulate(int iterations, std::iostream & outputStream)
 }
 
 /// Sums total population.
-long Universe::TotalPopulation()
+long long Universe::TotalPopulation()
 {
-	long totalPopulation = 0;
+	long long totalPopulation = 0;
 	for(int w=0; w<ships.size(); ++w)
 	{
 		totalPopulation += ships[w]->population;
 	}
 	for(int q=0; q<solarSystems.size(); ++q)
 	{
-		totalPopulation += solarSystems[q].TotalPopulation();
+		totalPopulation += solarSystems[q]->TotalPopulation();
 	}
 	return totalPopulation;
 }
@@ -141,4 +141,17 @@ int Universe::GetTravelTime(Planet * destination, Planet * origin)
 		return 240;
 	}
 	return 720;
+}
+
+void Universe::PrintStatistics(std::iostream & outputStream)
+{
+	for(int q=0; q<solarSystems.size(); ++q)
+	{
+		outputStream<<"\nSolarsystem "<<q+1<<" Population: "<<solarSystems[q]->TotalPopulation();
+		for(int w=0; w<solarSystems[q]->planets.size(); ++w)
+		{
+			outputStream<<"\nPlanet "<<w+1<<" of system Population: "<<solarSystems[q]->planets[w]->population;
+		}
+
+	}
 }

@@ -27,6 +27,8 @@ SolarSystem::SolarSystem(int numberOfPlanets, std::iostream & outputStream)
 		strcpy(planet->name, name);
 		strcat(planet->name, buffer);
 		planet->solarsystem=this;
+		planet->size=rand()%Planet::MAX_SIZES;
+		planet->resources=rand()%Planet::MAX_SIZES;
 	}
 }
 
@@ -40,9 +42,9 @@ void SolarSystem::Simulate(int iterations, std::iostream & outputStream)
 }
 
 	/// Sums total population.
-long SolarSystem::TotalPopulation()
+long long SolarSystem::TotalPopulation()
 {
-	long totalPopulation = 0;
+	long long totalPopulation = 0;
 	for(int q=0; q<planets.size(); ++q)
 	{
 		totalPopulation += planets[q]->population;
